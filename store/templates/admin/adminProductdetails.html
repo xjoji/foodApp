@@ -1,0 +1,121 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<title>foodApp: Product</title>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+<div class="container">
+    <div class="main-body">
+    
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a onclick="goBack()">Back</a></li>
+              {% if request.user.is_staff %}
+              <li class="breadcrumb-item active" aria-current="page">Product List</li>
+              {% endif %}
+
+              <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img class="thumbnail" src="{{product.imageURL}}">
+                    <div class="mt-3">
+                      <h4>{{customer.name}}</h4>
+                      <p class="text-secondary mb-1">{{customer.phone}}</p>
+                      <p class="text-muted font-size-sm">{{customer.email}}</p>
+                      {% if request.user.is_staff %}
+                      <a class="btn btn-outline-primary" href="{% url 'editProduct' product.id %}">Update</a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Price</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.price|floatformat:0}} ฿
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Description</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.description}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">  
+                      <h6 class="mb-0">Seller</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.seller}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">  
+                      <h6 class="mb-0">Phone Number</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.seller.phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Date Delivery</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.date_delivery|date}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Date Closed</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{product.date_closed|date}}
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock content %}

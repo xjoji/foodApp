@@ -1,0 +1,79 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<title>foodApp: Order History</title>
+
+<style>
+    .button {
+      display: inline-block;
+      padding: 3px 20px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #050101;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+    }
+    
+    .button:hover {background-color: #a5aca5}
+    
+    .button:active {
+      background-color: #121312;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    </style>
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a onclick="goBack()">Back</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Order History List</li>
+            </ol>
+          </nav><hr>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Transaction ID</th>
+					<th>Customer</th>
+					<th>Date Ordered</th>
+					<th>Seller</th>					
+          <th>Status</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Delivery Date</th>
+
+				</tr>
+
+				{% for order in orders %}
+
+				<tr>
+					<td>{{order.order.transaction_id}}</td>
+					<td>{{order.order.customer}}</td>
+					<td>{{order.date_added|date}}</td>
+					<td>{{order.product.seller}}</td>
+          <td>{{order.order.status}}</td>         
+					<td>{{order.quantity}}</td>
+					<td>{{order.product.price|floatformat:0}} ฿</td>
+					<td>{{order.product.date_delivery|date}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock content %}

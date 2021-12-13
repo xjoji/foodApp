@@ -1,0 +1,79 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<title>foodApp: View Product</title>
+<style>
+    .button {
+      display: inline-block;
+      padding: 3px 20px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #050101;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+    }
+    
+    .button:hover {background-color: #a5aca5}
+    
+    .button:active {
+      background-color: #121312;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    </style>
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a onclick="goBack()">Back</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Product List</li>
+            </ol>
+          </nav><hr>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+          <th>Seller</th>
+					<th>Date Added</th>
+					<th>Date Closed</th>  
+					<th>Date Delivery</th>
+					<th>Details</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for product in products %}
+
+				<tr>
+					<td>{{product.name}}</td>
+					<td>{{product.price|floatformat:0}} ฿</td>
+					<td>{{product.seller}}</td>
+					<td>{{product.date_added}}</td>
+          <td>{{product.date_closed|date}}</td>
+					<td>{{product.date_delivery|date}}</td>
+          <td><a class="btn btn-sm btn-info" href="{% url 'product' product.id %}">View</a></td>
+
+					<td><a class="btn btn-sm btn-danger" href="{% url 'deleteProduct' product.id %}">Delete</a></td>
+				</tr>
+				{% endfor %}
+        <a class="btn btn-primary btn-block text-uppercase" href="{% url 'addProduct' %}">Add Product</a>
+        <hr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+{% endblock content %}
